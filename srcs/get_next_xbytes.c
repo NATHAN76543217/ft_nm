@@ -17,6 +17,7 @@ int     get_next_xbytes(int fd, void **bytes, unsigned int x)
         return (-1);
     }
     *bytes = wrmalloc(x);
+    ft_bzero(*bytes, x);
     ret = read(fd, *bytes ,x);
     if (ret == 0)
         return (0);
