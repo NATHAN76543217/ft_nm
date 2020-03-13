@@ -6,7 +6,7 @@
 #    By: nlecaill <nlecaill@student.le-101.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/18 16:51:32 by dgascon           #+#    #+#              #
-#    Updated: 2020/03/09 18:15:31 by nlecaill         ###   ########lyon.fr    #
+#    Updated: 2020/03/13 12:32:36 by nlecaill         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,8 @@ PATH_INC		=	includes
 
 PATH_SRC		=	srcs
 PATH_OBJ		=	objs
-SRC_LIST		= 	nm_main.c get_next_xbytes.c
-INCS_LIST		=	nm.h
+SRC_LIST		= 	nm_main.c get_next_xbytes.c ft_ehdr.c ft_phdr.c
+INCS_LIST		=	nm.h 
 
 OBJS			=	$(addprefix $(PATH_OBJ)/, $(SRC_LIST:.c=.o))
 OBJS_BONUS		=	$(addprefix $(PATH_OBJ)/, $(BONUS_LIST:.c=.o))
@@ -54,7 +54,7 @@ $(PATH_OBJ)/%.o: $(PATH_SRC)/%.c $(INCS)
 	@ printf "\r                                                                                          \r\033[0m"
 
 $(LIBFT_NAME):
-	@ make -C $(LIBFT_PATH) re
+	@ make -C $(LIBFT_PATH) 
 	@ printf "\033[0;38;5;82mCompilation de la \033[1m$@ \033[0;38;5;82mreussis.\n\033[0m"
 
 $(MINILIBX_NAME):

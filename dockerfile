@@ -18,10 +18,11 @@ RUN mkdir /ft_nm
 RUN mkdir /ft_nm/srcs
 RUN mkdir ft_nm/includes
 
-COPY    ./srcs/start.sh             ./app/start.sh
-COPY    ./srcs/main.c               ./ft_nm/srcs/main.c
-COPY    ./srcs/get_next_xbytes.c    ./ft_nm/srcs/
-COPY    ./srcs/nm_main.c            ./ft_nm/srcs/nm_main.c
+ COPY    ./srcs/start.sh             /app/start.sh
+# COPY    ./srcs/main.c               ./ft_nm/srcs/main.c
+# COPY    ./srcs/get_next_xbytes.c    ./ft_nm/srcs/
+# COPY    ./srcs/nm_main.c            ./ft_nm/srcs/nm_main.c
+COPY    ./srcs/                     ./ft_nm/srcs
 COPY    ./libft                     ./ft_nm/libft
 COPY    ./includes                  ./ft_nm/includes
 COPY    ./Makefile                  ./ft_nm/
