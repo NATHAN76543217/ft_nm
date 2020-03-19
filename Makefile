@@ -18,7 +18,9 @@ PATH_INC		=	includes
 
 PATH_SRC		=	srcs
 PATH_OBJ		=	objs
-SRC_LIST		= 	nm_main.c get_next_xbytes.c ft_ehdr.c ft_phdr.c
+SRC_LIST		= 	nm_main.c get_next_xbytes.c ft_ehdr.c ft_phdr.c	\
+					ft_symbols.c ft_sym_lst.c utils.c
+
 INCS_LIST		=	nm.h 
 
 OBJS			=	$(addprefix $(PATH_OBJ)/, $(SRC_LIST:.c=.o))

@@ -40,7 +40,7 @@ static int type_of_file(Elf64_Ehdr *ehdr)
 	if (ehdr->e_shstrndx == SHN_UNDEF)
 		ft_printf("\nREFERENCE NON DEFINI");
 	else
-		ft_printf("\nindice de l'entree associe a la table des chaines de nom de sections = %d", ehdr->e_shstrndx);
+		ft_printf("\nSH strndx = %d", ehdr->e_shstrndx);
 	return (0);
 }
 
@@ -56,33 +56,30 @@ static int eident_next(Elf64_Ehdr *ehdr)
 		ft_printf("illegal endian value");
 	if (ehdr->e_ident[EI_VERSION] != EV_CURRENT)
 		ft_printf("deprecated version ");
-	//if (ehdr->e_ident[EI_OSABI] == ELFOSABI_LINUX)
-	  //  ft_printf("linux ABI ");
-  //  else
-	//    ft_printf("other ABI ");
-   // if (ehdr->e_ident[EI_NIDENT] != EI_NIDENT)
-	 //   ft_printf("e_ident[NIDENT] = %d ", ehdr->e_ident[EI_NIDENT]);
+	if (ehdr->e_ident[EI_OSABI] == ELFOSABI_LINUX)
+	   ft_printf("linux ABI ");
+   else
+	    ft_printf("other ABI ");
+   if (ehdr->e_ident[EI_NIDENT] != EI_NIDENT)
+	   ft_printf("e_ident[NIDENT] = %d ", ehdr->e_ident[EI_NIDENT]);
 	return (0);
 }
 
-int ft_ehdr(int fd, Elf64_Ehdr *ehdr)
+int ft_ehdr(Elf64_Ehdr *ehdr)
 {
-	if (get_next_xbytes(fd, (void **)&ehdr, sizeof(Elf64_Ehdr)) < 0)
-	{
-		wrdestroy();
-		return (ft_printf("error\n"));
-	}
+	// ft_printf("\nELF HEADER\n\n");
 	if (ehdr->e_ident[EI_MAG0] == ELFMAG0 && ehdr->e_ident[EI_MAG1] == ELFMAG1 && ehdr->e_ident[EI_MAG2] == ELFMAG2 && ehdr->e_ident[EI_MAG3] == ELFMAG3)
 	{
-		ft_printf("EFL ");
-		if (ehdr->e_ident[EI_CLASS] == ELFCLASS32)
-			ft_printf("binary for 32bits architecture\n");
-		else if (ehdr->e_ident[EI_CLASS] == ELFCLASS64)
+		// ft_printf("EFL ");
+		if (ehdr->e_ident[EI_CLASS] == ELFCLASS64)
 		{
-			ft_printf("64-bit ");
-			eident_next(ehdr);
-			type_of_file(ehdr);
+			// ft_printf("64-bit ");
+			// eident_next(ehdr);
+			// type_of_file(ehdr);
+			return (1);
 		}
+		//else if (ehdr->e_ident[EI_CLASS] == ELFCLASS32)
+			// ft_printf("binary for 32bits architecture\n");
 		else
 			ft_printf("invalid architecture\n");
 	}

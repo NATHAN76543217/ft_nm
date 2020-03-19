@@ -12,6 +12,7 @@ RUN apt-get install -y file
 RUN apt-get install -y git
 RUN apt-get install -y zsh
 RUN apt-get install -y make
+RUN apt-get install -y lldb
 RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 RUN mkdir /ft_nm
