@@ -1,6 +1,6 @@
 #include "nm.h"
 
-int ft_section(int fd, t_nmdata *data)
+int ft_section(t_nmdata *data)
 {
     int         i;
     t_sec_index section_index;
@@ -28,7 +28,7 @@ int ft_section(int fd, t_nmdata *data)
     return (0);
 }
 
-int	ft_phdr(int fd, t_nmdata *data)
+int	ft_phdr(t_nmdata *data)
 {
     int i;
 
@@ -44,8 +44,8 @@ int	ft_phdr(int fd, t_nmdata *data)
             ft_printf("segment [%d] : segment LOAD\n", i);
         else if (data->phdr->p_type == PT_DYNAMIC)
             ft_printf("segment [%d] : segment DYNAMIC\n", i);
-        else if (data->phdr->p_type == PT_NOTE)
-            ft_printf("segment [%d] : segment NOTE\n", i);
+        */if (data->phdr->p_type == PT_NOTE)
+            ft_printf("segment [%d] : segment NOTE\n", i);/*
         else if (data->phdr->p_type == PT_INTERP)
             ft_printf("segment [%d] : segment INTERP \n", i);           
         else if (data->phdr->p_type == PT_PHDR)
@@ -70,5 +70,6 @@ int	ft_phdr(int fd, t_nmdata *data)
             ft_printf("segment [%d] : other segment\n", i);*/
         i++;
     }
+    data->phdr = data->file + data->ehdr->e_phoff + (i * data->ehdr->e_phentsize);
     return (0);
 }

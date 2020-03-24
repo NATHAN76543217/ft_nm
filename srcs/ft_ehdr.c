@@ -27,12 +27,12 @@ static int type_of_file(Elf64_Ehdr *ehdr)
 	if (ehdr->e_phoff == 0)
 		ft_printf("\nNO programme header table\n");
 	else
-		printf("\nPH table offset = %llu\n", ehdr->e_phoff);
+		printf("\nPH table offset = %lu\n", ehdr->e_phoff);
 	ft_printf("PH table sizeof 1 entries = %d", ehdr->e_phentsize);
 	if (ehdr->e_shoff == 0)
 		ft_printf("\nNO Section header table\n");
 	else
-		printf("\nSH offset = %llu\n", ehdr->e_shoff);
+		printf("\nSH offset = %lu\n", ehdr->e_shoff);
 	if (ehdr->e_shnum == 0)
 		ft_printf("NO sections entries");
 	else
@@ -65,20 +65,21 @@ static int eident_next(Elf64_Ehdr *ehdr)
 	return (0);
 }
 
-int ft_ehdr(Elf64_Ehdr *ehdr)
+int ft_ehdr(t_nmdata *data)
 {
 	// ft_printf("\nELF HEADER\n\n");
-	if (ehdr->e_ident[EI_MAG0] == ELFMAG0 && ehdr->e_ident[EI_MAG1] == ELFMAG1 && ehdr->e_ident[EI_MAG2] == ELFMAG2 && ehdr->e_ident[EI_MAG3] == ELFMAG3)
+	if ((data->ehdr->e_ident[EI_MAG0] == ELFMAG0 && data->ehdr->e_ident[EI_MAG1] == ELFMAG1 && data->ehdr->e_ident[EI_MAG2] == ELFMAG2 && data->ehdr->e_ident[EI_MAG3] == ELFMAG3)
+	|| (ft_strncmp((char *)data->file, "!<arch>", 7) == 0))
 	{
 		// ft_printf("EFL ");
-		if (ehdr->e_ident[EI_CLASS] == ELFCLASS64)
+		if (data->ehdr->e_ident[EI_CLASS] == ELFCLASS64)
 		{
 			// ft_printf("64-bit ");
-			// eident_next(ehdr);
-			// type_of_file(ehdr);
+			// eident_next(data->ehdr);
+			// type_of_file(data->ehdr);
 			return (1);
 		}
-		//else if (ehdr->e_ident[EI_CLASS] == ELFCLASS32)
+		//else if (data->ehdr->e_ident[EI_CLASS] == ELFCLASS32)
 			// ft_printf("binary for 32bits architecture\n");
 		else
 			ft_printf("invalid architecture\n");

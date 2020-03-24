@@ -8,7 +8,7 @@
 typedef struct  sym_list
 {
 	unsigned char	*name;
-	void			*value;
+	unsigned long	value;
 	char			type;
 	unsigned int	sec_ndx;
 	int				bind;
@@ -19,6 +19,8 @@ typedef struct  sym_list
 typedef struct	s_nmdata
 {
 	void		*file;
+	char		*file_name;
+	int			fd;
 	Elf64_Ehdr	*ehdr;
 	Elf64_Phdr	*phdr;
 	Elf64_Shdr	*shdr;
@@ -43,10 +45,16 @@ typedef struct section_offset
 
 }       s_off;
 
+/*																			 *\
+** --------------------------------------------------------------------------**
+** -------------------------------- PROTOTYPES ------------------------------**
+** --------------------------------------------------------------------------**
+\*																			 */	
+
 int			get_next_xbytes(int fd, void **bytes, unsigned int x);
-int			ft_ehdr(Elf64_Ehdr *ehdr);
-int			ft_phdr(int fd, t_nmdata *data);
-int			ft_section(int fd, t_nmdata *data);
+int			ft_ehdr(t_nmdata *data);
+int			ft_phdr(t_nmdata *data);
+int			ft_section(t_nmdata *data);
 int			ft_symbol(t_nmdata *data, t_sec_index index);
 t_sym_list	*ft_lst_snew(Elf64_Sym *sym, char *strtab);
 void		ft_lst_sadd_back(t_sym_list **lst, t_sym_list *new);
