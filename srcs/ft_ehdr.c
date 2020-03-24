@@ -68,8 +68,7 @@ static int eident_next(Elf64_Ehdr *ehdr)
 int ft_ehdr(t_nmdata *data)
 {
 	// ft_printf("\nELF HEADER\n\n");
-	if ((data->ehdr->e_ident[EI_MAG0] == ELFMAG0 && data->ehdr->e_ident[EI_MAG1] == ELFMAG1 && data->ehdr->e_ident[EI_MAG2] == ELFMAG2 && data->ehdr->e_ident[EI_MAG3] == ELFMAG3)
-	|| (ft_strncmp((char *)data->file, "!<arch>", 7) == 0))
+	if (data->ehdr->e_ident[EI_MAG0] == ELFMAG0 && data->ehdr->e_ident[EI_MAG1] == ELFMAG1 && data->ehdr->e_ident[EI_MAG2] == ELFMAG2 && data->ehdr->e_ident[EI_MAG3] == ELFMAG3)
 	{
 		// ft_printf("EFL ");
 		if (data->ehdr->e_ident[EI_CLASS] == ELFCLASS64)

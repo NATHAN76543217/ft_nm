@@ -44,8 +44,8 @@ int	ft_phdr(t_nmdata *data)
             ft_printf("segment [%d] : segment LOAD\n", i);
         else if (data->phdr->p_type == PT_DYNAMIC)
             ft_printf("segment [%d] : segment DYNAMIC\n", i);
-        */if (data->phdr->p_type == PT_NOTE)
-            ft_printf("segment [%d] : segment NOTE\n", i);/*
+        if (data->phdr->p_type == PT_NOTE)
+            ft_printf("segment [%d] : segment NOTE\n", i);
         else if (data->phdr->p_type == PT_INTERP)
             ft_printf("segment [%d] : segment INTERP \n", i);           
         else if (data->phdr->p_type == PT_PHDR)

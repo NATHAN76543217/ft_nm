@@ -3,6 +3,8 @@
 
 
 //TODO initialiser la structure ehdr + ajouter condition dans gnxb pour malloc si null
+//TODO virer fonction phdr (non uttilise)
+
 int main(int ac, char **av)
 {
 	t_nmdata	data;
@@ -39,7 +41,7 @@ int main(int ac, char **av)
 		else if (ft_strncmp((char *)data.file, "!<arch>", 7) == 0)
 		{
 			ft_printf("ar archive\n");
-			
+
 		}
 		else if ((*(unsigned char *)data.file == 0xFE  && *((unsigned char *)data.file + 1) == 0xED && *((unsigned char *)data.file + 2) == 0xFA && *((unsigned char *)data.file + 3) == 0xCE))
 			ft_printf("Mach-o 32bits format\n");
