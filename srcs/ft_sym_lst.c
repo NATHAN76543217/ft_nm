@@ -1,7 +1,5 @@
 #include "nm.h"
 
-
-
 static	t_sym_list	*swap(t_sym_list *ptr1, t_sym_list *ptr2)
 {
 	t_sym_list	*tmp;
@@ -71,6 +69,7 @@ t_sym_list *ft_lst_snew(Elf64_Sym *sym, char *strtab)
 	lst->T = ELF64_ST_TYPE(sym->st_info);
 	lst->value = sym->st_value;
 	lst->sec_ndx = sym->st_shndx;
+	lst->size = sym->st_size;
 	lst->next = NULL;
 	return (lst);
 }
