@@ -15,7 +15,7 @@ Le script NM_TESTER.sh compare la sortie de ft_nm avec celle de la commande nm.
 **-all files**:
         teste recursivement tout les fichiers.
         (ex: ../tester/nm_tester)
-**-specified files**
+**-specified files**:
         teste uniquement les fichiers specifier en arguments
         (ex: ../tester/nm_tester file1 file2 file3 ...)
 
