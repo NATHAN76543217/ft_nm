@@ -6,7 +6,7 @@
 #    By: nlecaill <nlecaill@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/18 16:51:32 by nlecaill          #+#    #+#              #
-#    Updated: 2021/09/10 00:30:40 by nlecaill         ###   ########lyon.fr    #
+#    Updated: 2021/09/10 07:01:19 by nlecaill         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,9 @@ LIBFT_NAME		=	libft.a
 LIBFT_FLAG 		=	-Llibft -lft
 LIBFT_INC		=	$(addprefix $(LIBFT_PATH)/, $(PATH_INC))
 LIBFT			=	$(addprefix $(LIBFT_PATH)/, $(LIBFT_NAME))
+
+TESTER_FILES	=	diff_file dump_nm dump_tested files_failed files_tested
+RM				=	rm -rf
 
 CC				=	gcc
 INCLUDES		=	-I$(LIBFT_INC)  -I$(PATH_INC)
@@ -61,15 +64,15 @@ $(LIBFT_NAME):
 	@ printf "\033[0;38;5;82mCompilation de la \033[1m$@ \033[0;38;5;82mreussis.\n\033[0m"
 
 clean:
-	@ /bin/rm -rf $(PATH_OBJ)
+	@ ${RM} $(PATH_OBJ)
 	@ make -C $(LIBFT_PATH) clean
 
-cleanperso:
-	@ /bin/rm -rf $(PATH_OBJ)
+cleanTester:
+	@ ${RM} ${TESTER_FILES}
 
-fclean: clean
+fclean: clean cleanTester
 	@ make -C $(LIBFT_PATH) fclean
-	@ /bin/rm -rf $(NAME) ./$(NAME)*
+	@ ${RM} $(NAME) ./$(NAME)*
 	@ printf "\033[0;38;5;160mSuppression de \033[1m$(NAME)/$(PATH_OBJ) ..."
 	@ sleep 0.5
 	@ printf "\r                                                                                          \r\033[0m"
