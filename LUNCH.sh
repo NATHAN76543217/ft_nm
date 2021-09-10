@@ -1,0 +1,1 @@
+docker build -t nm_img . && docker run --rm --name nm_cnt nm_img

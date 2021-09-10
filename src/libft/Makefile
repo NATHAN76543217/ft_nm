@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nlecaill <nlecaill@student.le-101.fr>      +#+  +:+       +#+         #
+#    By: nlecaill <nlecaill@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/07 15:11:52 by dgascon           #+#    #+#              #
-#    Updated: 2020/03/02 18:51:42 by nlecaill         ###   ########lyon.fr    #
+#    Updated: 2021/09/10 00:24:34 by nlecaill         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ SRC_LIST	= 	string/ft_strlen.c		string/ft_toupper.c				\
 				put/ft_putnbr_fd.c		put/ft_putnbr_base_fd.c			\
 				put/ft_putnstr_fd.c		put/ft_putnbr_ui_base_fd.c		\
 										put/ft_putnbr_format_fd.c		\
-				put/ft_message.c										\
+				put/ft_message.c		put/ft_putuntil_fd.c								\
 				lists/ft_lstnew.c		lists/ft_lstadd_front.c			\
 				lists/ft_lstsize.c		lists/ft_lstlast.c				\
 				lists/ft_lstadd_back.c	lists/ft_lstdelone.c			\
@@ -57,15 +57,16 @@ SRC_LIST	= 	string/ft_strlen.c		string/ft_toupper.c				\
 				numbers/ft_digit_ul_base.c numbers/ft_itoa.c			\
 				numbers/ft_itoa_base.c	numbers/ft_digit_format_base.c	\
 				numbers/ft_atoi.c		numbers/ft_natoi.c				\
+				numbers/ft_natoi.c										\
 				utils/ft_base.c			utils/colors.c					\
-				ftprintf/ft_printf.c	ftprintf/pf_conv.c				\
-				ftprintf/pf_utils.c		ftprintf/lists/pf_initlst.c		\
-				ftprintf/display/pf_disp_char.c							\
-				ftprintf/display/pf_disp_int.c 							\
-				ftprintf/display/pf_disp_perc.c 						\
-				ftprintf/display/pf_disp_ptr.c 							\
-				ftprintf/display/pf_disp_string.c 						\
-				ftprintf/display/pf_disp.c								\
+				ft_printf/ft_printf.c	ft_printf/pf_conv.c				\
+				ft_printf/pf_utils.c		ft_printf/lists/pf_initlst.c		\
+				ft_printf/display/pf_disp_char.c							\
+				ft_printf/display/pf_disp_int.c 							\
+				ft_printf/display/pf_disp_perc.c 						\
+				ft_printf/display/pf_disp_ptr.c 							\
+				ft_printf/display/pf_disp_string.c 						\
+				ft_printf/display/pf_disp.c								\
 				complex/add_comp.c		complex/mult_comp.c				\
 				endian/ft_endian.c 		endian/ft_r_endian_int.c		
 
@@ -87,7 +88,7 @@ all: $(NAME)
 	@ printf "\r                                                                                          \r"
 
 $(NAME): $(OBJS) $(INCS)
-	@ ar rc $(NAME) $(OBJS)
+	@ ar rcs $(NAME) $(OBJS)
 
 $(PATH_OBJ)/%.o: $(PATH_SRC)/%.c $(INCS)
 	@ $(shell mkdir -p $(PATH_OBJ) $(addprefix $(PATH_OBJ)/, $(DIRS_LIST)))

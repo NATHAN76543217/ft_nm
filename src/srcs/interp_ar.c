@@ -1,6 +1,5 @@
 #include "nm.h"
 
-
 typedef struct ar_header
 {
 	char	file_name[16];
@@ -83,7 +82,7 @@ void	interp_ar(t_nmdata *data)
 		// ft_putnstr_fd(ar->header.file_name, 16, 1);
 		//table de recherche en 3 parties
 		//partie 1: nombre de symboles
-		nb_sym = reverseInt(ar->nb_sym);
+		nb_sym = ar->nb_sym;
 		// ft_printf("nm sym = %d\n", nb_sym);
 		//partie 2: un ensemble d'offset de header_files des fichier ou apparaisse les symboles 
 		len = nb_sym*4;

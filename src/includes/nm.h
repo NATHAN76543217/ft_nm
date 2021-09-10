@@ -2,6 +2,7 @@
 # define NM_H
 
 # include "elf.h"
+# include <stdio.h>
 # include "libft.h"
 # include <sys/mman.h>
 # include <sys/stat.h>
@@ -61,10 +62,6 @@ typedef struct section_offset
 **--------------------------------------------------------------------------**
 \*																			*/	
 
-int	ft_natoi(const char *str, int n);
-
-
-int			get_next_xbytes(int fd, void **bytes, unsigned int x);
 void		ft_nm(t_sym_list *lst);
 int			ft_ehdr(t_nmdata *data);
 int			ft_phdr(t_nmdata *data);
@@ -78,4 +75,4 @@ void		interp_ar(t_nmdata *data);
 void		ft_putuntil_fd(int fd, const char *str, char limit);
 
 
-#endif
+#endif						/* NM_H */

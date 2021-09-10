@@ -14,9 +14,9 @@ int	ft_natoi(const char *str, int n)
 	i = 0;
 	sign = 1;
 	result = 0;
-    if (!str)
-        return (0);
-	while ((*(str + i) == ' ' || (*(str + i) >= '\t' && *(str + i) <= '\r')) && i < n)
+	if (!str)
+		return (0);
+	while ((str[i] == ' ' || (str[i] >= '\t' && str[i] <= '\r')) && i < n)
 		i++;
 	if ((*(str + i) == '+' || *(str + i) == '-') && i < n)
 		(*(str + i++) == '-') ? sign = -1 : 0;
