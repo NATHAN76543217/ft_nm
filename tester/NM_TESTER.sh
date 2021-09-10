@@ -1,19 +1,36 @@
 #!/bin/bash
 
 ABS_PATH_TO_FT_NM="/ft_nm/ft_nm"
-FILE_EXCLUDE_LIST="ret_ft"
+FILE_EXCLUDE_LIST="dump_tested"
 DIR_EXCLUDE_LIST="sys proc"
+
+# colors/style
+_BOLD="\033[1m"
+_SLOW_BLINK="\033[5m"
+_BLACK="\033[30m"
+_RED="\033[31m"
+_GREEN="\033[32m"
+_YELLOW="\033[33m"
+_BLUE="\033[34m"
+_RESET="\033[0m"
 
 function test_file
 {
 	#compare les sortie d'un fichier passe en argument
-	nm $1 > ret_nm 2> ret_nm
-	$ABS_PATH_TO_FT_NM $1 > ret_ft 2> ret_ft
-	nb=$(diff ret_nm ret_ft | wc | sed 's/^[ \t]*//' | cut -d ' ' -f1)
-	diff ret_nm ret_ft >> diff_file
-	if [ "$nb" != "0" ]
+	nm $1 > dump_nm 2> dump_nm
+	nm_return=`echo $?`
+	$ABS_PATH_TO_FT_NM $1 > dump_tested 2> dump_tested
+	tested_return=`echo $?`
+	nb=$(diff dump_nm dump_tested | wc | sed 's/^[ \t]*//' | cut -d ' ' -f1)
+	diff dump_nm dump_tested >> diff_file
+	if [ "$nm_return" != "$tested_return" ]
 	then
-		echo -e "\033[32mSome error on \033[4;30m$1\033[0m" && echo $1 >> files_failed && ((FAILED++))
+		echo "error result:" >> diff_file 
+		diff nm_return tested_return >> diff_file
+	fi
+	if [ "$nb" != "0" ] || [ "$nm_return" != "$tested_return" ]
+	then
+		echo -e "${_GREEN}Some error on ${_YELLOW}${_SLOW_BLINK}$1${_RESET}" && echo $1 >> files_failed && ((FAILED++))
 	else
 		((SUCCESS++))
 	fi 
@@ -57,11 +74,11 @@ function test_specified
 {
 	#test tout les fichier passe en arguments
 	init
-	echo "Test des fichiers en cours..."
+	echo -e "${_BLUE}Test des fichiers en cours...${_RESET}"
 	for files in $@
 	do
-		echo "" > ret_ft
-		echo "" > ret_nm
+		echo "" > dump_tested
+		echo "" > dump_nm
 		test_file $file
 		nb_file=$(($nb_file + 1))
 		echo $file >> files_tested
@@ -78,9 +95,9 @@ function test_all
 		PWD=""
 	fi
 	#recuperer tout les noms de fichier du repertoire courant et des sous repertoire
-	echo -e "\033[34mRecuperation des fichiers en cours..."
+	echo -e "${_BLUE}Recuperation des fichiers en cours..."
 	add_file "$PWD/"
-	echo -e "Test des fichiers en cours...\033[0m"
+	echo -e "Test des fichiers en cours...${_RESET}"
 	IFS=$'\n'
 	#test tout ces fichiers
 	for file in $FICHIERS
@@ -97,8 +114,8 @@ function test_all
 		done
 		if [ "$DoNotTest" == "0" ]
 		then
-			echo -n "" > ret_ft
-			echo -n "" > ret_nm
+			echo -n "" > dump_tested
+			echo -n "" > dump_nm
 			test_file $file
 			nb_file=$(($nb_file + 1))
 			echo $file >> files_tested
@@ -110,8 +127,8 @@ function test_all
 function init
 {
 	#creation des cinq fichiers de retour
-	touch ret_nm		&& echo -n "" > ret_nm 
-	touch ret_ft		&& echo -n "" > ret_ft 
+	touch dump_nm		&& echo -n "" > dump_nm 
+	touch dump_tested		&& echo -n "" > dump_tested 
 	touch files_tested	&& echo -n "" > files_tested
 	touch files_failed	&& echo -n "" > files_failed
 	touch diff_file		&& echo -n "" > diff_file 
@@ -120,7 +137,7 @@ function init
 function start
 {
 	#test existance de ft_nm
-	echo -e "\033[1;5;34m************FT_NM_TESTER***********\033[0mby Nlecaill"
+	echo -e "${_BOLD}${_SLOW_BLINK}${_BLUE}m************FT_NM_TESTER***********${_RESET}by Nlecaill"
 	if [ ! -e $ABS_PATH_TO_FT_NM ]
 	then echo "file $ABS_PATH_TO_FT_NM not found" && exit 1
 	fi
@@ -128,22 +145,22 @@ function start
 	#test mode de tests
 	if [ "$#" -ne 0 ]
 	then
-		for file in $@
-		do
-			#test validite des arguments
-			if [ ! -e $file ]
-			then
-				echo "file : $file not found" && exit 1 
-			fi
-		done
-		echo -e "\033[1;31mTest mode:\033[0m specified files"
+		# for file in $@
+		# do
+		# 	test validite des arguments
+		# 	if [ ! -e $file ]
+		# 	then
+		# 		echo "file : $file not found" && exit 1 
+		# 	fi
+		# done
+		echo -e "${_RED}${_BOLD}Test mode:${_RESET} specified files"
 		test_specified $@
 	else
-		echo -e "\033[1;31mTest mode:\033[0m all files"
+		echo -e "${_RED}${_BOLD}Test mode:${_RESET} all files"
 		test_all $@
 	fi
-	echo -e "\033[31m$SUCCESS \033[34msuccess and \033[31m$FAILED \033[34mfailure on \033[31m$nb_file \033[34mfiles tested\033[0m"
-	echo -e "\033[5;1;34mDONE\033[0m"
+	echo -e "${_RED} ${SUCCESS} ${_BLUE}success and${_RED} ${FAILED} ${_BLUE}failure on${_RED} $nb_file ${_BLUE}files tested${_RESET}"
+	echo -e "${_RED}${_BOLD}${_SLOW_BLINK}DONE${RESET}"
 }
 
 FICHIERS=""
