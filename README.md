@@ -13,12 +13,11 @@ Le script NM_TESTER.sh compare la sortie de ft_nm avec celle de la commande nm.
  ## Il y a deux modes de fonctionnement:
 
 * **all files**:
-        teste recursivement tout les fichiers.
-        (ex: ../tester/nm_tester)
+        teste recursivement tout les fichiers a partir du repertoire courants.
+        ex: `./nm_tester`
 * **specified files**:
         teste uniquement les fichiers specifier en arguments
-        (ex: ../tester/nm_tester file1 file2 file3 ...)
-
+        ex: `./nm_tester file1 [file2...]`
 ## plusieur fichiers de retours sont crées:
 
 * **ret_ft:** comporte le resultat de la commande ft_nm du dernier test.

@@ -25,8 +25,9 @@ function test_file
 	diff dump_nm dump_tested >> diff_file
 	if [ "$nm_return" != "$tested_return" ]
 	then
-		echo "error result:" >> diff_file 
-		diff nm_return tested_return >> diff_file
+		echo "error result:" 					>> diff_file 
+		echo "nm_return:     ${nm_return}"		>> diff_file
+		echo "tested_return: ${tested_return}"	>> diff_file
 	fi
 	if [ "$nb" != "0" ] || [ "$nm_return" != "$tested_return" ]
 	then
@@ -99,7 +100,7 @@ function test_all
 	add_file "$PWD/"
 	echo -e "Test des fichiers en cours...${_RESET}"
 	IFS=$'\n'
-	#test tout ces fichiers
+	#test tout les fichiers
 	for file in $FICHIERS
 	do
 		DoNotTest=0
@@ -128,7 +129,7 @@ function init
 {
 	#creation des cinq fichiers de retour
 	touch dump_nm		&& echo -n "" > dump_nm 
-	touch dump_tested		&& echo -n "" > dump_tested 
+	touch dump_tested	&& echo -n "" > dump_tested 
 	touch files_tested	&& echo -n "" > files_tested
 	touch files_failed	&& echo -n "" > files_failed
 	touch diff_file		&& echo -n "" > diff_file 
@@ -145,14 +146,14 @@ function start
 	#test mode de tests
 	if [ "$#" -ne 0 ]
 	then
-		# for file in $@
-		# do
-		# 	test validite des arguments
-		# 	if [ ! -e $file ]
-		# 	then
-		# 		echo "file : $file not found" && exit 1 
-		# 	fi
-		# done
+		for file in $@
+		do
+			# test validite des arguments
+			if [ ! -e $file ]
+			then
+				echo "file : $file not found" && exit 1 
+			fi
+		done
 		echo -e "${_RED}${_BOLD}Test mode:${_RESET} specified files"
 		test_specified $@
 	else

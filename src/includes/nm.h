@@ -6,6 +6,7 @@
 # include "libft.h"
 # include <sys/mman.h>
 # include <sys/stat.h>
+# include <sys/types.h>
 
 /*																			*\
 **--------------------------------------------------------------------------**
@@ -37,6 +38,7 @@ typedef struct	s_nmdata
 	Elf64_Shdr	*shdr;
 	char		*strtab;
 	char		*sh_strtab;
+	struct stat file_stat;
 }				t_nmdata;
 
 typedef struct section_index
